@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# This is an example script that install and configure grub after installation.
+# To use it put it in your CUSTOMIZE_DIR, make it executable, and edit EXTRAPKGS
+# of your $sysconfdir/default/ganeti-instance-debootstrap.
+#
+# Xen, for etch/lenny i386:
+#   EXTRA_PKGS="linux-image-xen-686,libc6-xen"
+# Xen, for etch/lenny amd64:
+#   EXTRA_PKGS="linux-image-xen-amd64"
+# KVM:
+#   no extra packages needed besides the normal suggested ones
+#
+# Do not include grub in EXTRA_PKGS because it will cause error of debootstrap.
+
+set -e
+
+. common.sh
+
+CLEANUP=( )
+
+trap cleanup EXIT
+
+if [ -z "$TARGET" -o ! -d "$TARGET" ]; then
+  echo "Missing target directory"
+  exit 1
+fi
+
+cat > $TARGET/etc/network/interfaces <<EOF
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+EOF
+
+
+# execute cleanups
+cleanup
+trap - EXIT
+
+exit 0
