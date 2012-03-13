@@ -145,7 +145,11 @@ fi
 : ${SUITE:="squeeze"}
 : ${ARCH:=""}
 : ${EXTRA_PKGS:=""}
+<<<<<<< HEAD
 : ${CUSTOMIZE_DIR:="/srv/ganeti/os/debian6/hooks"}
+=======
+: ${CUSTOMIZE_DIR:="/srv/ganeti/os/stable/hooks"}
+>>>>>>> d4db7981007278613cc061dda5d2918145e4596b
 : ${VARIANTS_DIR:="/etc/ganeti/instance-debootstrap/variants"}
 : ${GENERATE_CACHE:="yes"}
 : ${CLEAN_CACHE:="14"} # number of days to keep a cache file
